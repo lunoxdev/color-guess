@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Application, Container } from "pixi.js";
+import { Application, Container, Graphics } from "pixi.js";
 
 const App = () => {
   const canvasContainer = useRef<HTMLDivElement>(null);
@@ -20,13 +20,21 @@ const App = () => {
           canvasContainer.current.appendChild(app.canvas); // Append Pixi canvas
         }
 
-        // Create a container positioned at the center of the screen
+        // Container at center of screen
         const container = new Container({
           x: app.screen.width / 2,
           y: app.screen.height / 2,
         });
 
         app.stage.addChild(container); // Add container to stage
+
+        // Star
+        const graphics = new Graphics();
+
+        graphics.star(0, 0, 5, 50);
+        graphics.stroke({ width: 2, color: 0x4a9eff });
+
+        container.addChild(graphics); // add Star to the container
       } catch (error) {
         console.error("Error initializing PixiJS:", error);
       }
