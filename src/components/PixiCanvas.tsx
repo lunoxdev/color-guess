@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Application, Graphics, Text } from "pixi.js";
+import { Application, Graphics, Text, Ticker } from "pixi.js";
 import type { GameState } from "../types";
 import { colors } from "../utils/colors";
 
@@ -34,6 +34,8 @@ const PixiCanvas = ({ gameState, setIsPixiReady }: Props) => {
           backgroundColor: 0x0a0a1f,
           antialias: true,
         });
+
+        pixiApp.current = app;
 
         if (pixiContainer.current) {
           pixiContainer.current.innerHTML = "";
@@ -82,9 +84,14 @@ const PixiCanvas = ({ gameState, setIsPixiReady }: Props) => {
 
   // Update graphics when game state changes
   useEffect(() => {
-    if (!targetStar.current || !feedbackText.current) return;
+    if (!targetStar.current || !feedbackText.current || !pixiApp.current)
+      return;
 
     const star = targetStar.current;
+    const app = pixiApp.current;
+    const feedback = feedbackText.current;
+
+    // Re draw the star
     star.clear();
     star.star(0, 0, 5, 50);
 
@@ -95,7 +102,26 @@ const PixiCanvas = ({ gameState, setIsPixiReady }: Props) => {
       star.fill(0x666666);
     }
 
-    feedbackText.current.text = gameState.feedback;
+    feedback.text = gameState.feedback;
+
+    // Animate the start if the response contain "Correct!"
+    if (gameState.feedback.startsWith("Correct!")) {
+      const rotate = (ticker: Ticker) => {
+        star.rotation += 0.05 * ticker.deltaTime;
+      };
+
+      app.ticker.add(rotate);
+
+      const timeout = setTimeout(() => {
+        app.ticker.remove(rotate);
+        star.rotation = 0;
+      }, 1500);
+
+      return () => {
+        clearTimeout(timeout);
+        app.ticker.remove(rotate);
+      };
+    }
   }, [gameState]);
 
   return (
