@@ -34,9 +34,13 @@ const App = () => {
       try {
         const app = new Application();
 
+        // Resize canvas height on mobile
+        const isMobile = window.innerWidth <= 915;
+        const canvasHeight = isMobile ? 180 : 300;
+
         await app.init({
           width: 400,
-          height: 300,
+          height: canvasHeight,
           backgroundColor: 0x1a1a2e,
           antialias: true,
         });
@@ -68,9 +72,11 @@ const App = () => {
           },
         });
 
+        const feedbackOffsetY = isMobile ? 60 : 80;
+
         feedback.anchor.set(0.5);
         feedback.x = app.screen.width / 2;
-        feedback.y = app.screen.height / 2 + 80;
+        feedback.y = app.screen.height / 2 + feedbackOffsetY;
 
         feedbackText.current = feedback;
         app.stage.addChild(feedback);
@@ -167,7 +173,7 @@ const App = () => {
       <div>
         <button
           onClick={startNewGame}
-          className={`py-3 px-5 my-6 rounded-lg mr-5 ${
+          className={`text-sm md:text-base py-2 md:py-3 px-5 my-4 md:my-6 rounded-lg mr-5 font-bold ${
             gameState.isGameActive
               ? "bg-[#666] cursor-not-allowed"
               : "bg-[#4a9eff] cursor-pointer"
@@ -196,7 +202,7 @@ const App = () => {
                 e.currentTarget.style.backgroundColor = "#2a2a4e";
               }
             }}
-            className={`px-2 py-3 rounded-lg border border-[#4a9eff] transition-all duration-300 ${
+            className={`px-2 py-1 md:py-3 rounded-lg border border-[#4a9eff] transition-all duration-300 ${
               gameState.isGameActive
                 ? "bg-[#2a2a4e] cursor-pointer"
                 : "bg-[#1a1a2e] text-[#666] cursor-not-allowed opacity-80"
