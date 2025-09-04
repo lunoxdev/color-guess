@@ -176,7 +176,7 @@ const App = () => {
       <div>
         <button
           onClick={startNewGame}
-          className={`text-sm md:text-base py-2 md:py-3 px-5 my-4 md:my-6 rounded-lg mr-5 font-bold ${
+          className={`text-sm lg:text-base py-2 lg:py-3 px-5 my-4 lg:my-6 rounded-lg mr-5 font-bold ${
             gameState.isGameActive
               ? "bg-[#666] cursor-not-allowed"
               : "bg-[#4a9eff] cursor-pointer"
@@ -205,7 +205,7 @@ const App = () => {
                 e.currentTarget.style.backgroundColor = "#2a2a4e";
               }
             }}
-            className={`px-2 py-1 md:py-3 rounded-lg border border-[#4a9eff] transition-all duration-300 ${
+            className={`px-2 py-1 lg:py-3 rounded-lg border border-[#4a9eff] transition-all duration-300 ${
               gameState.isGameActive
                 ? "bg-[#2a2a4e] cursor-pointer"
                 : "bg-[#1a1a2e] text-[#666] cursor-not-allowed opacity-80"
