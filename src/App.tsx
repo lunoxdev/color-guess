@@ -163,23 +163,32 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mx-auto p-5 bg-[#0f0f23] h-screen w-screen">
+    <div className="flex flex-col items-center justify-center mx-auto p-5 bg-[#0a0a1f] h-screen w-screen">
       {!isPixiReady && <p>Loading game...</p>}
 
-      <div
-        ref={pixiContainer}
-        className={`border border-[#4a9eff] rounded-xl ${
-          isPixiReady ? "block" : "none"
-        }`}
-      />
+      <div className="relative">
+        <div
+          className={`absolute -inset-2 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 blur-md ${
+            gameState.isGameActive
+              ? "animate-pulse brightness-125"
+              : "animate-none opacity-50"
+          }`}
+        />
+        <div
+          ref={pixiContainer}
+          className={`relative flex items-center justify-center bg-slate-900 text-slate-300 ${
+            isPixiReady ? "block" : "none"
+          }`}
+        />
+      </div>
 
       <div>
         <button
           onClick={startNewGame}
-          className={`text-sm lg:text-base py-2 lg:py-3 px-5 my-4 lg:my-6 rounded-lg mr-5 font-bold ${
+          className={`text-sm lg:text-base py-2 lg:py-3 px-5 my-5 lg:my-6 rounded-lg mr-5 font-bold bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-700 ${
             gameState.isGameActive
-              ? "bg-[#666] cursor-not-allowed"
-              : "bg-[#4a9eff] cursor-pointer"
+              ? "opacity-60 cursor-not-allowed"
+              : "hover:brightness-125 cursor-pointer"
           }`}
           disabled={gameState.isGameActive || !isPixiReady}
         >
@@ -195,20 +204,10 @@ const App = () => {
             key={color.name}
             onClick={() => handleColorGuess(color.name)}
             disabled={!gameState.isGameActive || !isPixiReady}
-            onMouseEnter={(e) => {
-              if (gameState.isGameActive && isPixiReady) {
-                e.currentTarget.style.backgroundColor = "#4a9eff";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (gameState.isGameActive && isPixiReady) {
-                e.currentTarget.style.backgroundColor = "#2a2a4e";
-              }
-            }}
-            className={`px-2 py-1 lg:py-3 rounded-lg border border-[#4a9eff] transition-all duration-300 ${
+            className={`px-2 py-1 lg:py-3 rounded-lg border border-dashed border-purple-700 hover:bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 transition-all duration-300 ${
               gameState.isGameActive
-                ? "bg-[#2a2a4e] cursor-pointer"
-                : "bg-[#1a1a2e] text-[#666] cursor-not-allowed opacity-80"
+                ? "brightness-125 cursor-pointer"
+                : "opacity-70 text-white/70 cursor-not-allowed"
             }`}
           >
             {color.name}
