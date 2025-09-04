@@ -35,11 +35,12 @@ const App = () => {
         const app = new Application();
 
         // Resize canvas height on mobile
-        const isMobile = window.innerWidth <= 915;
+        const isMobile = window.innerWidth <= 932;
+        const canvasWeight = isMobile ? 330 : 400;
         const canvasHeight = isMobile ? 180 : 300;
 
         await app.init({
-          width: 400,
+          width: canvasWeight,
           height: canvasHeight,
           backgroundColor: 0x1a1a2e,
           antialias: true,
@@ -186,7 +187,7 @@ const App = () => {
         <span className="font-bold">Score: {gameState.score}</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-3 w-[400px]">
+      <div className="grid grid-cols-3 gap-3 w-[330px] lg:w-[400px]">
         {colors.map((color) => (
           <button
             key={color.name}
