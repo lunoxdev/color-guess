@@ -163,7 +163,7 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mx-auto p-5 bg-[#0f0f23] h-dvh w-screen">
+    <div className="flex flex-col items-center justify-center mx-auto p-5 bg-[#0f0f23] h-screen w-screen">
       {!isPixiReady && <p>Loading game...</p>}
 
       <div
