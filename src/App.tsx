@@ -34,6 +34,8 @@ const App = () => {
       try {
         const app = new Application();
 
+        globalThis.__PIXI_APP__ = app; // Pixi Devtools
+
         // Resize canvas height on mobile
         const isMobile = window.innerWidth <= 932;
         const canvasWeight = isMobile ? 330 : 400;
