@@ -28,7 +28,7 @@ const PixiContent = ({ gameState, targetStar, feedbackText }: PixiContentProps) 
             <pixiGraphics
                 ref={targetStar}
                 x={(window.innerWidth <= 932 ? 330 : 400) / 2}
-                y={(window.innerWidth <= 932 ? 180 : 300) / 2}
+                y={(window.innerWidth <= 932 ? 180 : 300) / 2 - 20}
                 draw={(g) => {
                     g.clear();
                     g.star(0, 0, 5, 50);
