@@ -1,35 +1,29 @@
-import { Howl } from "howler";
+import { sound } from '@pixi/sound';
 
-const sounds: Record<string, Howl> = {
-  bgSound: new Howl({
-    src: ["/assets/audio/bg-sound.mp3"],
-    loop: true,
-    volume: 1,
-    autoplay: true,
-  }),
-  start: new Howl({
-    src: ["/assets/audio/start-game.mp3"],
-    loop: false,
-    volume: 1,
-  }),
-  selection: new Howl({
-    src: ["/assets/audio/selection-sound.mp3"],
-    loop: false,
-    volume: 1,
-  }),
-};
+sound.add("bgSound", {
+  url: "/assets/audio/bg-sound.mp3",
+  loop: true,
+  volume: 1,
+  autoplay: true,
+});
+
+sound.add("start", {
+  url: "/assets/audio/start-game.mp3",
+  loop: false,
+  volume: 1,
+});
+
+sound.add("selection", {
+  url: "/assets/audio/selection-sound.mp3",
+  loop: false,
+  volume: 1,
+});
 
 // Funtions to interact with audios
-export const playSound = (name: keyof typeof sounds) => {
-  sounds[name]?.play();
+export const playSound = (name: string) => {
+  sound.play(name);
 };
 
-export const stopSound = (name: keyof typeof sounds) => {
-  sounds[name]?.stop();
+export const stopSound = (name: string) => {
+  sound.stop(name);
 };
-
-export const setVolume = (name: keyof typeof sounds, volume: number) => {
-  sounds[name]?.volume(volume);
-};
-
-export default sounds;
