@@ -1,5 +1,6 @@
 import type { GameState } from "../types";
 import { colors } from "../utils/colors";
+import { playSound } from "../utils/sounds";
 
 type Props = {
     gameState: GameState;
@@ -8,11 +9,16 @@ type Props = {
 };
 
 const GamePanel = ({ gameState, onStart, onGuess }: Props) => {
+    const handleStart = () => {
+        playSound("start");
+        onStart();
+    };
+
     return (
         <>
             <section>
                 <button
-                    onClick={onStart}
+                    onClick={handleStart}
                     className={`text-sm lg:text-base py-2 lg:py-3 px-5 my-5 lg:my-6 rounded-lg mr-5 font-bold bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-700 ${gameState.isGameActive
                         ? "bg-none text-lime-500"
                         : "hover:brightness-125 cursor-pointer"
@@ -29,7 +35,10 @@ const GamePanel = ({ gameState, onStart, onGuess }: Props) => {
                 {colors.map((color) => (
                     <button
                         key={color.name}
-                        onClick={() => onGuess(color.name)}
+                        onClick={() => {
+                            playSound("selection");
+                            onGuess(color.name);
+                        }}
                         disabled={!gameState.isGameActive}
                         className={`px-2 py-1 lg:py-3 rounded-lg border border-dashed border-purple-700 hover:bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:font-bold transition-all duration-300 ${gameState.isGameActive
                             ? "brightness-125 cursor-pointer"

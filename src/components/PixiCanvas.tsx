@@ -3,6 +3,7 @@ import type { GameState } from "../types";
 import { Application, extend } from "@pixi/react";
 import { Graphics, Text } from "pixi.js";
 import PixiContent from "./PixiContent"
+import { playSound } from "../utils/sounds";
 
 extend({ Graphics, Text });
 
@@ -18,6 +19,7 @@ const PixiCanvas = ({ gameState, setIsPixiReady }: Props) => {
 
   // Init PixiJS
   useEffect(() => {
+    playSound("bgSound")
     setIsPixiReady(true);
   }, [setIsPixiReady]);
 
